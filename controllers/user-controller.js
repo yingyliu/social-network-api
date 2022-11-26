@@ -1,8 +1,12 @@
+// Importing user model
 const { user } = require('../models');
 
+//controller for user
 const userController = {
+    // get all users
     getAllUser(req, res) {
         user.find({})
+        // populating thoughts
         populate({
             path: 'thoughts',
             select: '-__v'
@@ -16,6 +20,7 @@ const userController = {
         });
     },
 
+    // get one user by id
     getUserById({ params }, res) {
         user.findOne({_id: params.id })
         .populate({
@@ -36,12 +41,14 @@ const userController = {
         });
     },
 
+    // create a new user
     createUser({ body }, res) {
         user.create(body)
         .then(dbUserData => res.json(dbUserData))
         .catch(err => res.status(400).json(err));
     },
 
+    // find user and update by id
     updateUser({ params, body }, res) {
         user.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
         .then(dbUserData => {
@@ -54,6 +61,7 @@ const userController = {
         .catch(err => res.status(400).json(err));
     },
 
+    // find the user then delete that user
     deleteUser({ params }, res) {
         user.findOneAndDelete({ _id: params.id })
         .then(dbUserData => {
@@ -66,6 +74,7 @@ const userController = {
         .catch(err => res.status(400).json(err));
     },
 
+    // adding friend to list
     addFriend({ params }, res) {
         user.findOneAndUpdate(
             { _id: param.userId },
@@ -86,7 +95,18 @@ const userController = {
         })
         .catch(err => res.json(err));
     },
+    
+    // find the friend and delete friend from list
+    removeFriend({ params }, res) {
+        user.findOneAndUpdate(
+            { _id: params.id},
+            { $pull: { friends: params.friendId }},
+            { new: true }
+        )
+        .then(dbUserData => res.json(dbUserData))
+        .catch(err => res.status(400).json(err));
+    }
 
-}
+};
 
 module.exports = userController;
