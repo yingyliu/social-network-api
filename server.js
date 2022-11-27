@@ -15,8 +15,8 @@ app.use(require('./routes'));
 mongoose.connect(
     process.env.MONGODB_URI || 'mongodb://localhost/social-network-api',
     {
-        userNewUrlParser:true,
-        userUnifiedTopology: true,
+        useNewUrlParser:true,
+        useUnifiedTopology: true,
     }
 );
 
