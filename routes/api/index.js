@@ -5,6 +5,6 @@ const thoughtRoutes = require('./thought-routes');
 
 // add prefix
 router.use('/users', userRoutes);
-router.use('/thoghts', thoughtRoutes);
+router.use('/thoughts', thoughtRoutes);
 
 module.exports = router;

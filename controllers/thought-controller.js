@@ -6,7 +6,7 @@ const thoughtController = {
     // get all thought
     getAllThoughts(req, res) {
         thought.find({})
-        populate({
+        .populate({
             path: 'thoughts',
             select: '-__v'
         })
@@ -41,11 +41,11 @@ const thoughtController = {
     },
 
     //adding thought 
-    addThought({ params }, res) {
+    addThought({ body }, res) {
         thought.create(body)
         .then(({ _id }) => {
             return user.findOneAndUpdate(
-                { _id: params.userId},
+                { _id: body.userId},
                 { $push: { thoughts: _id }},
                 { new: true, runValidators: true }
             );
@@ -98,7 +98,7 @@ const thoughtController = {
             { $push: { reactions: body }},
             { new: true, runValidators: true }
         )
-        populate({
+        .populate({
             path:'thoughts',
             select: '-__v'
         })
