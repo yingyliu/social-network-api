@@ -13,7 +13,7 @@ const {
 
 // GET all /api/users
 router
-    .router('/')
+    .route('/')
     .get(getAllUser)
     .post(createUser);
 
