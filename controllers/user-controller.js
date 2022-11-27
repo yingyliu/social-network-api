@@ -1,7 +1,7 @@
-// Importing user model
+// importing user model
 const { user } = require('../models');
 
-//controller for user
+// controller for user
 const userController = {
     // get all users
     getAllUser(req, res) {
