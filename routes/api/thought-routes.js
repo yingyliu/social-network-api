@@ -19,7 +19,7 @@ router
 
 // GET one, PUT, DELETE /api/thoughts/:thoughtId
 router
-    .route('/:id')
+    .route('/:thoughtId')
     .get(getThoughtById)
     .put(updateThought)
     .delete(removeThought);
